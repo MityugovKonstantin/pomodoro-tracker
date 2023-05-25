@@ -1,5 +1,5 @@
 # Avo Pomodoro Tracker
-## Pomoodro tracker is...
+## Pomodoro tracker is...
 The Pomodoro Technique is a time management technique developed by Francesco Cirillo in the late 1980s. The technique involves increasing work efficiency with less time spent due to deep concentration and short breaks. In the classical technique, time segments - "pomodoros" last half an hour: 25 minutes of work and 5 minutes of rest.
 ## Basic principles
 1. Decide on the tasks that you plan to perform, prioritize (see the Eisenhower matrix);

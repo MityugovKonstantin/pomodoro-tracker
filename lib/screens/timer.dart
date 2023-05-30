@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pomodoro_tracker/screens/main.dart';
 
 class TimerScreen extends StatelessWidget {
   @override
@@ -24,15 +25,44 @@ class TimerScreen extends StatelessWidget {
             Flexible(
                 flex: 1,
                 child: Container(
-                  alignment: Alignment.center,
-                  // color: Colors.blue,
-                  child: ElevatedButton(
-                      child:
-                          const Text("Start", style: TextStyle(fontSize: 20)),
-                      onPressed: () {
-                        print("Start!!!");
-                      }),
-                ))
+                    alignment: Alignment.center,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Flexible(
+                          flex: 1,
+                          child: Container(
+                            height: 175,
+                            alignment: Alignment.center,
+                            // color: Colors.red,
+                            child: ElevatedButton(
+                                child: const Text("Start",
+                                    style: TextStyle(fontSize: 20)),
+                                onPressed: () {
+                                  print("Start");
+                                }),
+                          ),
+                        ),
+                        Flexible(flex: 1, child: Container()),
+                        Flexible(
+                          flex: 1,
+                          child: Container(
+                              height: 175,
+                              alignment: Alignment.center,
+                              // color: Colors.red,
+                              child: ElevatedButton(
+                                  child: const Text("Back",
+                                      style: TextStyle(fontSize: 22)),
+                                  onPressed: () {
+                                    print("Back upping");
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                        builder: (context) => MainScreen()));
+                                    print("Finished back up");
+                                  }) //BoxDecoration
+                              ), //Container
+                        )
+                      ],
+                    )))
           ],
         ),
       ),

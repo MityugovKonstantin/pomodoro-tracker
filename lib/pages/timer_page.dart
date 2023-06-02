@@ -11,7 +11,6 @@ class TimerPage extends StatefulWidget {
 }
 
 class _TimerPageState extends State<TimerPage> {
-
   late Timer _timer;
 
   bool _isTimerWork = false;
@@ -22,7 +21,7 @@ class _TimerPageState extends State<TimerPage> {
   void _startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
-        if(_second > 0) {
+        if (_second > 0) {
           _second--;
         } else if (_minute > 0) {
           _second = 59;
@@ -57,8 +56,7 @@ class _TimerPageState extends State<TimerPage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               _isTimerWork
-                  ? Text(
-                  '$_hour:$_minute:$_second',
+                  ? Text('$_hour:$_minute:$_second',
                       style: const TextStyle(fontSize: 20))
                   : TimePickerSpinner(
                       isShowSeconds: true,
@@ -69,15 +67,27 @@ class _TimerPageState extends State<TimerPage> {
                           _second = time.second;
                         });
                       }),
-              _isTimerWork ? const Text('')
-              : OutlinedButton(
-                  onPressed: () {
-                    setState(() {
-                      _isTimerWork = true;
-                    });
-                    _startTimer();
-                  },
-                  child: const Text('Старт'))
+              _isTimerWork
+                  ? const Text('')
+                  : Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        OutlinedButton(
+                            onPressed: () {
+                              setState(() {
+                                _isTimerWork = true;
+                              });
+                              _startTimer();
+                            },
+                            child: const Text('Старт')),
+                        OutlinedButton(
+                            onPressed: () {
+                              Navigator.pushNamedAndRemoveUntil(
+                                  context, '/', (route) => false);
+                            },
+                            child: const Text('Назад'))
+                      ],
+                    )
             ],
           ),
         ));

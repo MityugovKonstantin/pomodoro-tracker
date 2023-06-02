@@ -30,7 +30,8 @@ class MainPage extends StatelessWidget {
               alignment: Alignment.center,
               child: OutlinedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/timer');
+                    Navigator.pushNamedAndRemoveUntil(
+                        context, '/timer', (route) => false);
                   },
                   child: const Text('Действуй')))
         ],

@@ -57,7 +57,7 @@ class _TimerPageState extends State<TimerPage> {
             children: [
               _isTimerWork
                   ? Text('$_hour:$_minute:$_second',
-                      style: const TextStyle(fontSize: 20))
+                      style: const TextStyle(fontSize: 40))
                   : TimePickerSpinner(
                       isShowSeconds: true,
                       onTimeChange: (time) {

@@ -14,13 +14,14 @@ class _NotePageState extends State<NotePage> {
   @override
   Widget build(BuildContext context) {
     final args = ModalRoute.of(context)!.settings.arguments as Note;
-    final header = args.header;
-    final mainText = args.mainText;
+    var header = args.header;
+    var mainText = args.mainText;
+    var id = args.id;
+
+    print('args.id = ${args.id}');
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Записка'),
-        ),
+        appBar: AppBar(title: Text('Записка')),
         body: SingleChildScrollView(
             child: Padding(
           padding: const EdgeInsets.all(10),
@@ -32,20 +33,35 @@ class _NotePageState extends State<NotePage> {
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Заголовок',
-                  )),
+                  ),
+                  onChanged: (String value) {
+                    header = value;
+                  }),
               const Padding(padding: EdgeInsets.only(bottom: 10)),
               TextFormField(
-                keyboardType: TextInputType.multiline,
+                  keyboardType: TextInputType.multiline,
                   initialValue: mainText,
                   maxLines: null,
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: 'Основной текст',
-                  )),
+                  ),
+                  onChanged: (String value) {
+                    mainText = value;
+                  }),
               const Padding(padding: EdgeInsets.only(bottom: 10)),
-              OutlinedButton(onPressed: () {
-                FirebaseFirestore.instance.collection('notes').
-              }, child: const Text('Сохранить'))
+              OutlinedButton(
+                  onPressed: () {
+                    FirebaseFirestore.instance
+                        .collection('notes')
+                        .doc(id)
+                        .delete();
+                    FirebaseFirestore.instance
+                        .collection('notes')
+                        .add({'header': header, 'mainText': mainText});
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Сохранить'))
             ],
           ),
         )));

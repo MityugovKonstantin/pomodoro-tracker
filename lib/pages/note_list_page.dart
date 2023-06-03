@@ -45,7 +45,7 @@ class _NoteListPageState extends State<NoteListPage> {
                             onPressed: () {
                               Navigator.pushNamed(context, '/note',
                                   arguments: Note(
-                                      index,
+                                      snapshot.data!.docs[index].id,
                                       snapshot.data!.docs[index]
                                           .get(firebaseHeaderAttributeName),
                                       snapshot.data!.docs[index]

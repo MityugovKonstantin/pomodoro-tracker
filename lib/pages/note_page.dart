@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pomodoro_tracker/models/note.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 
 class NotePage extends StatefulWidget {
   const NotePage({Key? key}) : super(key: key);

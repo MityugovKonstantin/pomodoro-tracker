@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:pomodoro_tracker/utils/time_picker.dart';
 
@@ -12,6 +13,7 @@ class TimerPage extends StatefulWidget {
 
 class _TimerPageState extends State<TimerPage> {
   late Timer _timer;
+  late AudioPlayer audioPlayer = AudioPlayer();
 
   bool _isTimerWork = false;
   int _hour = 0;
@@ -33,6 +35,31 @@ class _TimerPageState extends State<TimerPage> {
         } else {
           _isTimerWork = false;
           _timer.cancel();
+
+          audioPlayer.play(AssetSource('sounds/timer_done_sound.mp3'));
+          audioPlayer.onPlayerComplete.listen((event) {
+            audioPlayer.play(AssetSource('sounds/timer_done_sound.mp3'));
+          });
+
+          showDialog(
+              context: context,
+              barrierDismissible: false,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text('Время подошло к концу'),
+                  content: Container(
+                    height: 50,
+                    alignment: Alignment.center,
+                    child: OutlinedButton(
+                      onPressed: () {
+                        audioPlayer.stop();
+                        Navigator.of(context).pop();
+                      },
+                      child: const Text('Понятно'),
+                    ),
+                  ),
+                );
+              });
         }
       });
     });

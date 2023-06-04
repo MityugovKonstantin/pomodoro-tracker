@@ -60,6 +60,8 @@ flutter:
    assets:
    #  - images/a_dot_burr.jpeg
      - assets/sounds/timer_done_sound.mp3
+     - assets/sounds/pomodoro_iteration_done_sound.mp3
+     - assets/sounds/pomodoro_tick_sound.mp3
 
    uses-material-design: true
   # An image asset can refer to one or more resolution-specific "variants", see

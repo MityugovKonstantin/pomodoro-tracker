@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:pomodoro_tracker/widgets/timer_format.dart';
 
@@ -11,6 +12,7 @@ class PomodoroPage extends StatefulWidget {
 }
 
 class _PomodoroPageState extends State<PomodoroPage> {
+  AudioPlayer audioPlayer = AudioPlayer();
   late Timer pomodoroTimer;
   bool isTimerWork = false;
   int iteration = 0;
@@ -21,11 +23,16 @@ class _PomodoroPageState extends State<PomodoroPage> {
     pomodoroTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         if (second > 0) {
+          audioPlayer.play(AssetSource('sounds/pomodoro_tick_sound.mp3'));
           second--;
         } else if (minute > 0) {
+          audioPlayer.play(AssetSource('sounds/pomodoro_tick_sound.mp3'));
           second = 59;
           minute--;
         } else {
+          audioPlayer.stop();
+          audioPlayer
+              .play(AssetSource('sounds/pomodoro_iteration_done_sound.mp3'));
           iteration++;
           (iteration == 9)
               ? {minute = 30, second = 0}
@@ -35,6 +42,7 @@ class _PomodoroPageState extends State<PomodoroPage> {
           if (iteration == 10) {
             iteration = 0;
             isTimerWork = false;
+            audioPlayer.stop();
             pomodoroTimer.cancel();
           }
         }

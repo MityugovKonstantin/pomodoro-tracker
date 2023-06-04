@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:pomodoro_tracker/widgets/timer_format.dart';
 
 class PomodoroPage extends StatefulWidget {
   const PomodoroPage({Key? key}) : super(key: key);
@@ -59,18 +60,22 @@ class _PomodoroPageState extends State<PomodoroPage> {
                     Container(
                       alignment: Alignment.center,
                       child: (iteration < i * 2)
-                          ? const Text('25:00')
+                          ? const Text('25:00', style: TextStyle(fontSize: 25))
                           : (iteration > i * 2)
-                              ? const Text('Done')
-                              : Text('$minute:$second'),
+                              ? const Text('Done',
+                                  style: TextStyle(fontSize: 25))
+                              : Text(TimerFormat.pomodoro(minute, second),
+                                  style: TextStyle(fontSize: 25)),
                     ),
                     Container(
                       alignment: Alignment.center,
                       child: (iteration < (i * 2 + 1))
-                          ? const Text('5:00')
+                          ? const Text('05:00', style: TextStyle(fontSize: 25))
                           : (iteration > (i * 2 + 1))
-                              ? const Text('Done')
-                              : Text('$minute:$second'),
+                              ? const Text('Done',
+                                  style: TextStyle(fontSize: 25))
+                              : Text(TimerFormat.pomodoro(minute, second),
+                                  style: TextStyle(fontSize: 25)),
                     )
                   ],
                 ),
@@ -79,18 +84,20 @@ class _PomodoroPageState extends State<PomodoroPage> {
                   Container(
                     alignment: Alignment.center,
                     child: (iteration < 8)
-                        ? const Text('25:00')
+                        ? const Text('25:00', style: TextStyle(fontSize: 25))
                         : (iteration > 8)
-                            ? const Text('Done')
-                            : Text('$minute:$second'),
+                            ? const Text('Done', style: TextStyle(fontSize: 25))
+                            : Text(TimerFormat.pomodoro(minute, second),
+                                style: TextStyle(fontSize: 25)),
                   ),
                   Container(
                     alignment: Alignment.center,
                     child: (iteration < 9)
-                        ? const Text('30:00')
+                        ? const Text('30:00', style: TextStyle(fontSize: 25))
                         : (iteration > 9)
-                            ? const Text('Done')
-                            : Text('$minute:$second'),
+                            ? const Text('Done', style: TextStyle(fontSize: 25))
+                            : Text(TimerFormat.pomodoro(minute, second),
+                                style: TextStyle(fontSize: 25)),
                   )
                 ],
               ),
@@ -102,7 +109,7 @@ class _PomodoroPageState extends State<PomodoroPage> {
                         });
                         _timerStart();
                       },
-                      child: const Text('Start pomodoro'))
+                      child: const Text('Старт'))
                   : const Text('')
             ],
           ),

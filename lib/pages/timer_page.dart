@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:pomodoro_tracker/widgets/time_picker.dart';
+import 'package:pomodoro_tracker/widgets/timer_format.dart';
 
 class TimerPage extends StatefulWidget {
   const TimerPage({Key? key}) : super(key: key);
@@ -15,25 +16,25 @@ class _TimerPageState extends State<TimerPage> {
   late Timer _timer;
   late AudioPlayer audioPlayer = AudioPlayer();
 
-  bool _isTimerWork = false;
-  int _hour = 0;
-  int _minute = 0;
-  int _second = 0;
+  bool isTimerWork = false;
+  int hours = 0;
+  int minutes = 0;
+  int seconds = 0;
 
   void _startTimer() {
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
-        if (_second > 0) {
-          _second--;
-        } else if (_minute > 0) {
-          _second = 59;
-          _minute--;
-        } else if (_hour > 0) {
-          _second = 59;
-          _minute = 59;
-          _hour--;
+        if (seconds > 0) {
+          seconds--;
+        } else if (minutes > 0) {
+          seconds = 59;
+          minutes--;
+        } else if (hours > 0) {
+          seconds = 59;
+          minutes = 59;
+          hours--;
         } else {
-          _isTimerWork = false;
+          isTimerWork = false;
           _timer.cancel();
 
           audioPlayer.play(AssetSource('sounds/timer_done_sound.mp3'));
@@ -77,19 +78,19 @@ class _TimerPageState extends State<TimerPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              _isTimerWork
-                  ? Text('$_hour:$_minute:$_second',
+              isTimerWork
+                  ? Text(TimerFormat.timer(hours, minutes, seconds),
                       style: const TextStyle(fontSize: 40))
                   : TimePickerSpinner(
                       isShowSeconds: true,
                       onTimeChange: (time) {
                         setState(() {
-                          _hour = time.hour;
-                          _minute = time.minute;
-                          _second = time.second;
+                          hours = time.hour;
+                          minutes = time.minute;
+                          seconds = time.second;
                         });
                       }),
-              _isTimerWork
+              isTimerWork
                   ? const Text('')
                   : Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -97,7 +98,7 @@ class _TimerPageState extends State<TimerPage> {
                         OutlinedButton(
                             onPressed: () {
                               setState(() {
-                                _isTimerWork = true;
+                                isTimerWork = true;
                               });
                               _startTimer();
                             },
